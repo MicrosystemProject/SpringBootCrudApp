@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/patient") // Base entiry Path
+@RequestMapping("/api/v1/patient") 
 public class PatientController {
 
 	@Autowired
