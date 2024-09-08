@@ -2,6 +2,7 @@ package code.microsystem.service.impl;
 
 import code.microsystem.exception.PatientNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class PatientServiceImpl implements PatientService{
 
 	@Override
 	public List<Patient> addPatientList(List<Patient> patients) {
-		return patientRepository.saveAll(patients);
+	     return patientRepository.saveAll(patients);
 	}
 
 	@Override
@@ -74,6 +75,29 @@ public class PatientServiceImpl implements PatientService{
 		List<Patient> list=patientRepository.findByPnameAndAge(pname,age);
 		return list;
 	}
+
+	@Override
+	public List<Patient> findPatientssortedByFees(String sortdirection) throws PatientNotFoundException {
+        Sort sort = null;
+
+        if (sortdirection.equalsIgnoreCase("A")) {
+            // Sort in ascending order by fees
+            sort = Sort.by(Sort.Direction.ASC, "fees");
+        } else if (sortdirection.equalsIgnoreCase("D")) {
+            // Sort in descending order by fees
+            sort = Sort.by(Sort.Direction.DESC, "fees");
+        } else {
+            throw new IllegalArgumentException("Invalid sort direction. Use 'A' for ascending or 'D' for descending.");
+        }
+
+        List<Patient> patients = patientRepository.findAll(sort);
+
+        if (patients.isEmpty()) {
+            throw new PatientNotFoundException("No patients found.");
+        }
+
+        return patients;
+    }
 
 
 //	@Override
