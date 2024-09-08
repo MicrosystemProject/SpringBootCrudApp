@@ -22,5 +22,7 @@ public interface PatientService {
 
     List<Patient> findByPnameAndAge(String pname, int age);
 
+	List<Patient> findPatientssortedByFees(String sortdirection) throws PatientNotFoundException;
+
     // List<Patient> addPatientList(List<PatientRequest> patients);
 }

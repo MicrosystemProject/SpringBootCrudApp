@@ -23,7 +23,7 @@ public class PatientController {
 	
 	@GetMapping("/getHealth")
 	public ResponseEntity<String> getHealth(){
-		System.out.println("I am in Patient Controller");
+		
 		return new ResponseEntity<String>("SpringBoot Crud Application Running with good Health..",HttpStatus.OK);
 	}
 
@@ -31,7 +31,7 @@ public class PatientController {
 	@PostMapping("/addPatient")
 	public ResponseEntity<Patient> addPatient(@RequestBody @Valid  PatientRequest patientRequest){
 		Patient patient=patientService.addPatient(patientRequest);
-		System.out.println("This is add Pateint controoler");
+		
 		return new ResponseEntity<Patient>(patient,HttpStatus.CREATED);
 	}
 
@@ -88,5 +88,13 @@ public class PatientController {
 			throw new PatientNotFoundException("Patient Record Not Found.......");
 		return new ResponseEntity<List<Patient>>(list, HttpStatus.OK);
 	}
+	//find all Patients Sorted By Fees.
+			@GetMapping("/findPatientsByFees")
+			public ResponseEntity<List<Patient>> findPatientsByFees(@RequestParam("sort") String sortdirection) throws PatientNotFoundException{
+			List<Patient> sortedPatients = patientService.findPatientssortedByFees(sortdirection);
+				return new ResponseEntity<List<Patient>>(sortedPatients,HttpStatus.OK);
+				
+			}
+
 
 }
