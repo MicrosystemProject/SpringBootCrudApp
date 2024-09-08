@@ -12,7 +12,10 @@ import code.microsystem.entity.Patient;
 import code.microsystem.service.PatientService;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/patient") 
@@ -79,7 +82,6 @@ public class PatientController {
 	}
 
 	//findbypatient Name and age
-	//Supriya code changes
 	@GetMapping("/findByPnameAndAge")
 	public ResponseEntity<List<Patient>> findByPnameAndAge(@RequestParam("pname") String pname,@RequestParam("age") String age) throws PatientNotFoundException {
 		List<Patient> list=new ArrayList<>();
@@ -88,6 +90,20 @@ public class PatientController {
 			throw new PatientNotFoundException("Patient Record Not Found.......");
 		return new ResponseEntity<List<Patient>>(list, HttpStatus.OK);
 	}
+	// Find by email or mobile Number
+		@GetMapping("getPatientEmailAndMobileUsingId/{id}")
+		public ResponseEntity<Map<String,String>>getPatientDetails(@PathVariable Long id) throws PatientNotFoundException{
+			try {
+				Patient patient = patientService.getPatientById(id);
+				Map<String ,String > res = new HashMap<>();
+				res.put("email", patient.getEmail());
+				res.put("mobileNumber", patient.getMobile());
+				return ResponseEntity.ok(res);
+			}catch(Exception e) {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND)
+						.body(Collections.singletonMap("error","Patient Id does not exists....."+id));
+			}
+		}
 
 	
 }
