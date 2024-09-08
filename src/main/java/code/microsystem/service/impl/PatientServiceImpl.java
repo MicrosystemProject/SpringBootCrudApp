@@ -76,35 +76,4 @@ public class PatientServiceImpl implements PatientService{
 		return list;
 	}
 
-	@Override
-	public List<Patient> findPatientssortedByFees(String sortdirection) throws PatientNotFoundException {
-        Sort sort = null;
-
-        if (sortdirection.equalsIgnoreCase("A")) {
-            // Sort in ascending order by fees
-            sort = Sort.by(Sort.Direction.ASC, "fees");
-        } else if (sortdirection.equalsIgnoreCase("D")) {
-            // Sort in descending order by fees
-            sort = Sort.by(Sort.Direction.DESC, "fees");
-        } else {
-            throw new IllegalArgumentException("Invalid sort direction. Use 'A' for ascending or 'D' for descending.");
-        }
-
-        List<Patient> patients = patientRepository.findAll(sort);
-
-        if (patients.isEmpty()) {
-            throw new PatientNotFoundException("No patients found.");
-        }
-
-        return patients;
-    }
-
-
-//	@Override
-//	public List<Patient> addPatientList(List<PatientRequest> patients) {
-//		List<Patient> list=new ArrayList<Patient>();
-//		list.addAll(patients);
-//		return patientRepository.saveAll(list);
-//	}
-
 }
