@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/patient") // Base entiry Path
+@RequestMapping("/api/v1/patient") 
 public class PatientController {
 
 	@Autowired
@@ -74,7 +74,6 @@ public class PatientController {
 	//Edit or update  operation
 	@PutMapping("/editPatient")
 	public ResponseEntity<Patient> editPatient(@RequestBody @Valid  PatientRequest patientRequest) throws PatientNotFoundException {
-
 		Patient patient=patientService.editPatient(patientRequest);
 		return new ResponseEntity<Patient>(patient,HttpStatus.OK);
 	}
@@ -88,13 +87,5 @@ public class PatientController {
 			throw new PatientNotFoundException("Patient Record Not Found.......");
 		return new ResponseEntity<List<Patient>>(list, HttpStatus.OK);
 	}
-	//find all Patients Sorted By Fees.
-			@GetMapping("/findPatientsByFees")
-			public ResponseEntity<List<Patient>> findPatientsByFees(@RequestParam("sort") String sortdirection) throws PatientNotFoundException{
-			List<Patient> sortedPatients = patientService.findPatientssortedByFees(sortdirection);
-				return new ResponseEntity<List<Patient>>(sortedPatients,HttpStatus.OK);
-				
-			}
-
 
 }
