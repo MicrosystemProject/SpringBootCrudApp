@@ -23,6 +23,7 @@ public class PatientController {
 	
 	@GetMapping("/getHealth")
 	public ResponseEntity<String> getHealth(){
+		System.out.println("I am in Patient Controller");
 		return new ResponseEntity<String>("SpringBoot Crud Application Running with good Health..",HttpStatus.OK);
 	}
 
@@ -30,6 +31,7 @@ public class PatientController {
 	@PostMapping("/addPatient")
 	public ResponseEntity<Patient> addPatient(@RequestBody @Valid  PatientRequest patientRequest){
 		Patient patient=patientService.addPatient(patientRequest);
+		System.out.println("This is add Pateint controoler");
 		return new ResponseEntity<Patient>(patient,HttpStatus.CREATED);
 	}
 

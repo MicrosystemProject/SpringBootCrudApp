@@ -31,6 +31,7 @@ public class PatientServiceImpl implements PatientService{
 
 	@Override
 	public List<Patient> addPatientList(List<Patient> patients) {
+		System.out.println("This service addPatient Lists");
 		return patientRepository.saveAll(patients);
 	}
 
