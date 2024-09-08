@@ -76,5 +76,17 @@ public class PatientServiceImpl implements PatientService {
 		List<Patient> list = patientRepository.findByPnameAndAge(pname, age);
 		return list;
 	}
+	//Code is run Success
+	@Override 
+	 public Patient findEmailAndMobileByPname(String pname) throws PatientNotFoundException { 
+		 
+	return patientRepository.findByPname(pname)
+	  .orElseThrow(()->new PatientNotFoundException("Patient Not Found With name:"+ pname)); }
+
+	@Override
+	public Patient getPatientById(Long id) throws PatientNotFoundException {
+	        return patientRepository.findById(id).orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + id));
+	    }
+		
 
 }
