@@ -1,7 +1,11 @@
 package code.microsystem.dto;
 
 import jakarta.validation.constraints.*;
-import org.springframework.lang.NonNull;
+
+import java.time.LocalDateTime;
+
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,7 +29,16 @@ public class PatientRequest {
 	@NotBlank(message = "Patient Mobile should Not be Blank")
 	@Pattern(regexp="(^$|[0-9]{10})",message = "Mobile Nuber should be 10 digit long")
 	private String mobile;
+	
+	@CreatedDate
+	private LocalDateTime createdDate;
+	@LastModifiedDate
+	private LocalDateTime updatedDate;
+	@NotBlank(message = "Patient City should Not be Blank")
+	private String city;
+    @NotNull(message = "Fees should not be blank")
+    @Min(1000)
+	private double fees;
 	@NotBlank(message = "Patient Password should Not be Blank")
-
 	private String password;
 }
