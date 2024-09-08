@@ -9,6 +9,7 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -17,7 +18,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Patient {
+@EqualsAndHashCode(callSuper = true)
+public class Patient extends BasedEntity{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "patient_id")
@@ -28,5 +30,7 @@ public class Patient {
 	private String email;
 	private String mobile;
 	private String password;
+	private String city;
+	private double fees;
 
 }
