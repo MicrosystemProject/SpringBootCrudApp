@@ -91,6 +91,7 @@ public class PatientController {
 		return new ResponseEntity<List<Patient>>(list, HttpStatus.OK);
 	}
 	// Find by email or mobile Number
+	//Change the code
 		@GetMapping("getPatientEmailAndMobileUsingId/{id}")
 		public ResponseEntity<Map<String,String>>getPatientDetails(@PathVariable Long id) throws PatientNotFoundException{
 			try {
