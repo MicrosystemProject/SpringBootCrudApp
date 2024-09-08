@@ -79,6 +79,7 @@ public class PatientController {
 	}
 
 	//findbypatient Name and age
+	//Supriya code changes
 	@GetMapping("/findByPnameAndAge")
 	public ResponseEntity<List<Patient>> findByPnameAndAge(@RequestParam("pname") String pname,@RequestParam("age") String age) throws PatientNotFoundException {
 		List<Patient> list=new ArrayList<>();
@@ -88,4 +89,5 @@ public class PatientController {
 		return new ResponseEntity<List<Patient>>(list, HttpStatus.OK);
 	}
 
+	
 }
