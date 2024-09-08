@@ -87,6 +87,20 @@ public class PatientServiceImpl implements PatientService {
 	public Patient getPatientById(Long id) throws PatientNotFoundException {
 	        return patientRepository.findById(id).orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + id));
 	    }
+
+	@Override
+	public List<Patient> increaseFeesForPunePatients() {
+        List<Patient> patients = patientRepository.findAll();
+        for (Patient patient : patients) {
+            if ("Pune".equalsIgnoreCase(patient.getCity())) {
+                double updatedFees = patient.getFees() * 1.20;
+                patient.setFees(updatedFees);
+            }
+        }
+      
+        return patientRepository.saveAll(patients);
+    }
+
 		
 
 }

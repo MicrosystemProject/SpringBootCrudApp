@@ -26,4 +26,6 @@ public interface PatientService {
 
 	Patient getPatientById(Long id) throws PatientNotFoundException;
 
+	List<Patient> increaseFeesForPunePatients();
+
 }
