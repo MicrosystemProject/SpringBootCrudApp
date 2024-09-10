@@ -1,6 +1,12 @@
 package code.microsystem.controller;
 
 import code.microsystem.exception.PatientNotFoundException;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
 @RestController
 @RequestMapping("/api/v1/patient") 
 public class PatientController {
@@ -30,7 +37,11 @@ public class PatientController {
 		return new ResponseEntity<String>("SpringBoot Crud Application Running with good Health..",HttpStatus.OK);
 	}
 
-
+@Operation(summary = "Add Ne Patient..")
+	@ApiResponses({
+			@ApiResponse(responseCode = "201", content = {
+					@Content(schema = @Schema(implementation = Patient.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@PostMapping("/addPatient")
 	public ResponseEntity<Patient> addPatient(@RequestBody @Valid  PatientRequest patientRequest){
 		Patient patient=patientService.addPatient(patientRequest);
@@ -44,7 +55,14 @@ public class PatientController {
 		return new ResponseEntity<List<Patient>>(patientList,HttpStatus.CREATED);
 	}
 
-	//Find By Patient Id
+	@Operation(
+			summary = "Retrieve a Patient by Id",
+			description = "Get a Patient object by specifying its id. The response is Patient object ."
+			)
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Patient.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@GetMapping("/getByPatientId/{id}")
 	public ResponseEntity<Patient> getByPatientId(@PathVariable("id") long pId) throws PatientNotFoundException {
 		Patient patient=patientService.getByPatientId(pId);
