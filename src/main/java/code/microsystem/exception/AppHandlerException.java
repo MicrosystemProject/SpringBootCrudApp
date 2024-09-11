@@ -45,4 +45,15 @@ public class AppHandlerException {
 
     }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalArgumentException.class)
+    public Set<String> handleIllegalArgumentException(IllegalArgumentException ex) {
+
+        // Creating a Set containing the exception message
+    	return  Collections.singleton(ex.getMessage());
+		
+
+       
+    }
+
 }

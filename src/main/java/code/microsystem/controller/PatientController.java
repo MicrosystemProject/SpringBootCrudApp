@@ -109,9 +109,9 @@ public class PatientController {
 		return new ResponseEntity<List<Patient>>(list, HttpStatus.OK);
 	}
 	
+	
 	// Find by email or mobile Number
-	// find Email and Mobile
-		@GetMapping("getPatientEmailAndMobileUsingId/{id}")
+       @GetMapping("getPatientEmailAndMobileUsingId/{id}")
 		public ResponseEntity<Map<String,String>>getPatientDetails(@PathVariable Long id) throws PatientNotFoundException{
 			try {
 				Patient patient = patientService.getPatientById(id);
@@ -124,6 +124,14 @@ public class PatientController {
 						.body(Collections.singletonMap("error","Patient Id does not exists....."+id));
 			}
 		}
+     //find Patients Sorted By Fees.(Ascending and Descending order)
+     		@GetMapping("/findPatientsByFees")
+     		public ResponseEntity<List<Patient>> findPatientsByFees(@RequestParam("sort") String sortdirection) throws PatientNotFoundException{
+     		List<Patient> sortedPatients = patientService.findPatientssortedByFees(sortdirection);
+     			return new ResponseEntity<List<Patient>>(sortedPatients,HttpStatus.OK);
+     			
+     		}
+
 
 	
 }
