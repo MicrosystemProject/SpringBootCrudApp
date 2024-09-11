@@ -80,27 +80,25 @@ public class PatientServiceImpl implements PatientService {
 	@Override 
 	 public Patient findEmailAndMobileByPname(String pname) throws PatientNotFoundException { 
 		 
-	return patientRepository.findByPname(pname)
+return patientRepository.findByPname(pname)
 	  .orElseThrow(()->new PatientNotFoundException("Patient Not Found With name:"+ pname)); }
 
 	@Override
 	public Patient getPatientById(Long id) throws PatientNotFoundException {
 	        return patientRepository.findById(id).orElseThrow(() -> new PatientNotFoundException("Patient not found with ID: " + id));
-	    }
-
+	}
 	@Override
-	public List<Patient> increaseFeesForPunePatients() {
-        List<Patient> patients = patientRepository.findAll();
-        for (Patient patient : patients) {
-            if ("Pune".equalsIgnoreCase(patient.getCity())) {
-                double updatedFees = patient.getFees() * 1.20;
-                patient.setFees(updatedFees);
-            }
-        }
-      
-        return patientRepository.saveAll(patients);
-    }
+	public List<Patient> increaseFeesbycity() {
+		 List<Patient> patients = patientRepository.findAll();
+	        for (Patient patient : patients) {
+	            if ("Pune".equalsIgnoreCase(patient.getCity())) {
+	                double updatedFees = patient.getFees() * 1.20;
+	                patient.setFees(updatedFees);
+	            }
+	        }
+	      
+	        return patientRepository.saveAll(patients);
+	    }
+	}
 
-		
-
-}
+	
