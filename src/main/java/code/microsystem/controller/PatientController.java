@@ -126,5 +126,10 @@ public class PatientController {
 			}
 		}
 
+		@PutMapping("/increaseFees")
+		public ResponseEntity<List<Patient>> increaseFeesbycity() {
+		    List<Patient> updatedPatients = patientService.increaseFeesbycity();
+		    return new ResponseEntity<>(updatedPatients, HttpStatus.OK);
+		}
 	
 }
