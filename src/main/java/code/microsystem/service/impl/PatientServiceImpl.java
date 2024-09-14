@@ -90,15 +90,13 @@ return patientRepository.findByPname(pname)
 	@Override
 	public List<Patient> increaseFeesbycity() {
 		 List<Patient> patients = patientRepository.findAll();
-	        for (Patient patient : patients) {
-	            if ("Pune".equalsIgnoreCase(patient.getCity())) {
-	                double updatedFees = patient.getFees() * 1.20;
-	                patient.setFees(updatedFees);
-	            }
-	        }
-	      
-	        return patientRepository.saveAll(patients);
+		 patients.stream()
+	        .filter(patient -> "Pune".equalsIgnoreCase(patient.getCity()))
+	        .forEach(patient -> patient.setFees(patient.getFees() * 1.20)); 
+		
+		 return patientRepository.saveAll(patients);
 	    }
+	
 	}
 
 	
