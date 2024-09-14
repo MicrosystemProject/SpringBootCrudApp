@@ -111,6 +111,7 @@ public class PatientController {
 	
 	// Find by email or mobile Number
 	// find Email and Mobile
+	//Hello
 		@GetMapping("getPatientEmailAndMobileUsingId/{id}")
 		public ResponseEntity<Map<String,String>>getPatientDetails(@PathVariable Long id) throws PatientNotFoundException{
 			try {
