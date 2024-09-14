@@ -32,7 +32,6 @@ public class PatientController {
 	@Autowired
 	private PatientService patientService;
 
-
 	@Operation(summary = "Get Application Health", description = "Get Application Health .")
 	@ApiResponses({
 			@ApiResponse(responseCode = "200", content = {
@@ -84,26 +83,22 @@ public class PatientController {
 
 	@Operation(summary = "Retrive All Patient Details", description = "Get all patient detals by sending this request")
 	@ApiResponses({
-		@ApiResponse(responseCode = "200", content = {
-				@Content(schema = @Schema(implementation = Patient.class), mediaType = "application/json") }),
-		@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
-		@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+			@ApiResponse(responseCode = "200", content = {
+					@Content(schema = @Schema(implementation = Patient.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@GetMapping("/getAllPatient")
 	public ResponseEntity<List<Patient>> getAllPatient() {
 		List<Patient> patients = patientService.getAllPatient();
 		return new ResponseEntity<List<Patient>>(patients, HttpStatus.OK);
 	}
-    
+
 	@Operation(summary = "Delete patient by Patient Id", description = "Delete patient by the patient Id")
 	@ApiResponses({
-		@ApiResponse(responseCode = "202",content= {
-				@Content(schema=@Schema(implementation = Patient.class),mediaType="application/json")}),
-		@ApiResponse(responseCode = "404", content = {
-				@Content(schema = @Schema())}),
-		@ApiResponse(responseCode = "500", content = {
-				@Content(schema=@Schema())
-		})
-	})
+			@ApiResponse(responseCode = "202", content = {
+					@Content(schema = @Schema(implementation = Patient.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@DeleteMapping("/deletePatientById/{id}")
 	public ResponseEntity<String> deletePatientById(@PathVariable("id") long pId) throws PatientNotFoundException {
 		patientService.deletePatientById(pId);
@@ -112,14 +107,10 @@ public class PatientController {
 
 	@Operation(summary = "Delete patient by Patient Id using Parameter value", description = "Delete patient by the patient Id")
 	@ApiResponses({
-		@ApiResponse(responseCode = "202",content= {
-				@Content(schema=@Schema(implementation = Patient.class),mediaType="application/json")}),
-		@ApiResponse(responseCode = "404", content = {
-				@Content(schema = @Schema())}),
-		@ApiResponse(responseCode = "500", content = {
-				@Content(schema=@Schema())
-		})
-	})
+			@ApiResponse(responseCode = "202", content = {
+					@Content(schema = @Schema(implementation = Patient.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@DeleteMapping("/deletePatient")
 	public ResponseEntity<String> deletePatient(@RequestParam("id") long pId) throws PatientNotFoundException {
 		patientService.deletePatientById(pId);
@@ -128,14 +119,10 @@ public class PatientController {
 
 	@Operation(summary = "Update patient by Patient Id using Parameter patientId", description = "Update user info using patient Id")
 	@ApiResponses({
-		@ApiResponse(responseCode = "200",content= {
-				@Content(schema=@Schema(implementation = Patient.class),mediaType="application/json")}),
-		@ApiResponse(responseCode = "404", content = {
-				@Content(schema = @Schema())}),
-		@ApiResponse(responseCode = "500", content = {
-				@Content(schema=@Schema())
-		})
-	})
+			@ApiResponse(responseCode = "200", content = {
+					@Content(schema = @Schema(implementation = Patient.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@PutMapping("/editPatient")
 	public ResponseEntity<Patient> editPatient(@RequestBody @Valid PatientRequest patientRequest)
 			throws PatientNotFoundException {
@@ -145,14 +132,10 @@ public class PatientController {
 
 	@Operation(summary = "Find patient name and age using Patient Id", description = "Get patient name and age using Patient Id")
 	@ApiResponses({
-		@ApiResponse(responseCode = "200",content= {
-				@Content(schema=@Schema(implementation = Patient.class),mediaType="application/json")}),
-		@ApiResponse(responseCode = "404", content = {
-				@Content(schema = @Schema())}),
-		@ApiResponse(responseCode = "500", content = {
-				@Content(schema=@Schema())
-		})
-	})
+			@ApiResponse(responseCode = "200", content = {
+					@Content(schema = @Schema(implementation = Patient.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 	@GetMapping("/findByPnameAndAge")
 	public ResponseEntity<List<Patient>> findByPnameAndAge(@RequestParam("pname") String pname,
 			@RequestParam("age") String age) throws PatientNotFoundException {
@@ -163,7 +146,6 @@ public class PatientController {
 		return new ResponseEntity<List<Patient>>(list, HttpStatus.OK);
 	}
 
-	
 	@GetMapping("getPatientEmailAndMobileUsingId/{id}")
 	public ResponseEntity<Map<String, String>> getPatientDetails(@PathVariable Long id)
 			throws PatientNotFoundException {
