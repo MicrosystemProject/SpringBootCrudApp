@@ -123,5 +123,6 @@ class SpringBootCrudAppApplicationTests {
 		assertEquals(pname, result.get(0).getPname());
 		assertEquals(age, result.get(0).getAge());
 		verify(patientRepository, times(1)).findByPnameAndAge(pname, age);
+		
 	}
 }
