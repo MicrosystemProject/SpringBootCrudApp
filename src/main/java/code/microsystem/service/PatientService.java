@@ -21,5 +21,9 @@ public interface PatientService {
     Patient editPatient(PatientRequest patientRequest) throws PatientNotFoundException;
 
     List<Patient> findByPnameAndAge(String pname, int age);
+//patient request
+	Patient findEmailAndMobileByPname(String pname) throws PatientNotFoundException;
+
+	Patient getPatientById(Long id) throws PatientNotFoundException;
 
 }
