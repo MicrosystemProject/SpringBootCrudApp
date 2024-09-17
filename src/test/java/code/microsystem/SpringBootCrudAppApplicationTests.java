@@ -19,6 +19,8 @@ import code.microsystem.entity.Patient;
 import code.microsystem.repository.PatientRepository;
 import code.microsystem.service.PatientService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -94,5 +96,32 @@ class SpringBootCrudAppApplicationTests {
 		// Assert
 		verify(patientRepository, times(1)).findById(patientId);
 		verify(patientRepository, times(1)).deleteById(patientId);
+	}
+
+
+	@Test
+	void testFindByPnameAndAgeSuccess() {
+		// Arrange
+		String pname = "John";
+		int age = 30;
+
+		List<Patient> patientList = new ArrayList<>();
+		Patient patient = new Patient();
+		patient.setPname(pname);
+		patient.setAge(age);
+		patientList.add(patient);
+
+		// Mock the behavior of patientRepository
+		when(patientRepository.findByPnameAndAge(pname, age)).thenReturn(patientList);
+
+		// Act
+		List<Patient> result = patientService.findByPnameAndAge(pname, age);
+
+		// Assert
+		assertNotNull(result);
+		assertEquals(1, result.size());
+		assertEquals(pname, result.get(0).getPname());
+		assertEquals(age, result.get(0).getAge());
+		verify(patientRepository, times(1)).findByPnameAndAge(pname, age);
 	}
 }
