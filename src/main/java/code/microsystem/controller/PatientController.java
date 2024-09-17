@@ -161,7 +161,6 @@ public class PatientController {
 			throw new PatientNotFoundException("Patient Record Not Found.......");
 		return new ResponseEntity<List<Patient>>(list, HttpStatus.OK);
 	}
-
 	
 	@GetMapping("getPatientEmailAndMobileUsingId/{id}")
 	public ResponseEntity<Map<String, String>> getPatientDetails(@PathVariable Long id)
