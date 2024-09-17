@@ -37,7 +37,7 @@ public class PatientController {
 		return new ResponseEntity<String>("SpringBoot Crud Application Running with good Health..",HttpStatus.OK);
 	}
 
-@Operation(summary = "Add Ne Patient..")
+@Operation(summary = "Add New Patient..")
 	@ApiResponses({
 			@ApiResponse(responseCode = "201", content = {
 					@Content(schema = @Schema(implementation = Patient.class), mediaType = "application/json") }),
@@ -112,6 +112,15 @@ public class PatientController {
 	// Find by email or mobile Number
 	// find Email and Mobile
 	//Hello
+	@Operation(
+		    //System.out.print("false");
+			summary = "Find Patient Email and Mobile Number by Id",
+			description = "Get a Patient object by specifying its id. The response is Patient object ."
+			)
+	@ApiResponses({
+			@ApiResponse(responseCode = "200", content = { @Content(schema = @Schema(implementation = Patient.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "404", content = { @Content(schema = @Schema()) }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
 		@GetMapping("getPatientEmailAndMobileUsingId/{id}")
 		public ResponseEntity<Map<String,String>>getPatientDetails(@PathVariable Long id) throws PatientNotFoundException{
 			try {
