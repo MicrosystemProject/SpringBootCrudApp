@@ -1,6 +1,7 @@
 package code.microsystem;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -16,6 +17,9 @@ import code.microsystem.dto.PatientRequest;
 import code.microsystem.entity.Patient;
 import code.microsystem.repository.PatientRepository;
 import code.microsystem.service.PatientService;
+
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @SpringBootTest
 @RunWith(MockitoJUnitRunner.class)
@@ -51,4 +55,24 @@ class SpringBootCrudAppApplicationTests {
 
 	}
 
+	@Test
+	public void getetAllPatientTest(){
+		when(patientRepository.findAll()).thenReturn(Stream
+				.of(new Patient(101,"Sunita",23,"sunita@gmail.com","9822939054","12345","nagpur",2300),
+						new Patient(102,"Savita",23,"sunita@gmail.com","9822939054","12345","nagpur",2300)).collect(Collectors.toList()));
+		assertEquals(2, patientService.getAllPatient().size());
+
+	}
+
+	@Test
+	public void getPatientByIdTest(){
+		Patient patient = new Patient(101,"Sunita",23,"sunita@gmail.com","9822939054","12345","nagpur",2300);
+		when(patientRepository.findById(101L)).thenReturn(java.util.Optional.of(patient));
+
+		Patient retrievedPatient = patientRepository.findById(101L).orElse(null);
+
+		assertNotNull(retrievedPatient);  // Ensure the patient is found
+		assertEquals("sunita@gmail.com", retrievedPatient.getEmail());  // Check email
+		assertEquals("9822939054", retrievedPatient.getMobile());       // Check mobile
+	}
 }
