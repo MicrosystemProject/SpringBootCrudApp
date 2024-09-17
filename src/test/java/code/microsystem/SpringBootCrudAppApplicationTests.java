@@ -3,8 +3,9 @@ package code.microsystem;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
+import code.microsystem.exception.PatientNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -18,6 +19,7 @@ import code.microsystem.entity.Patient;
 import code.microsystem.repository.PatientRepository;
 import code.microsystem.service.PatientService;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -65,14 +67,32 @@ class SpringBootCrudAppApplicationTests {
 	}
 
 	@Test
-	public void getPatientByIdTest(){
-		Patient patient = new Patient(101,"Sunita",23,"sunita@gmail.com","9822939054","12345","nagpur",2300);
-		when(patientRepository.findById(101L)).thenReturn(java.util.Optional.of(patient));
+	public void getPatientByIdTest() throws PatientNotFoundException {
+		Long patientId = 101L;
+		Patient patient = new Patient();
+		patient.setPid(patientId);
 
-		Patient retrievedPatient = patientRepository.findById(101L).orElse(null);
+		when(patientRepository.findById(patientId)).thenReturn(Optional.of(patient));
 
-		assertNotNull(retrievedPatient);  // Ensure the patient is found
-		assertEquals("sunita@gmail.com", retrievedPatient.getEmail());  // Check email
-		assertEquals("9822939054", retrievedPatient.getMobile());       // Check mobile
+		// Act
+		Patient result = patientService.getPatientById(patientId);
+
+		// Assert
+		assertNotNull(result);
+		assertEquals(patientId, result.getPid());
+		verify(patientRepository, times(1)).findById(patientId);
+	}
+
+	@Test
+	public void deletePatientByIdTest() throws PatientNotFoundException {
+		Long patientId = 1L;
+		Patient patient = new Patient();
+		patient.setPid(patientId);
+		when(patientRepository.findById(patientId)).thenReturn(Optional.of(patient));
+		// Act
+		patientService.deletePatientById(patientId);
+		// Assert
+		verify(patientRepository, times(1)).findById(patientId);
+		verify(patientRepository, times(1)).deleteById(patientId);
 	}
 }
