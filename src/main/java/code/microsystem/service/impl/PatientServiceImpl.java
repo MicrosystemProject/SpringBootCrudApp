@@ -94,7 +94,7 @@ public class PatientServiceImpl implements PatientService {
 		 List<Patient> patients = patientRepository.findAll();
 		 patients.stream()
 	        .filter(patient -> "Pune".equalsIgnoreCase(patient.getCity()))
-	        .forEach(patient -> patient.setFees(patient.getFees() * 1.20)); 
+	        .forEach(patient -> patient.setFees(patient.getFees()+ (patient.getFees()*0.20))); 
 		
 		 return patientRepository.saveAll(patients);
 	    }	
