@@ -176,5 +176,16 @@ public class PatientController {
 					.body(Collections.singletonMap("error", "Patient Id does not exists....." + id));
 		}
 	}
+	
+	    @Operation(summary = "Increase Fees by City", description = "This API increases the fees of patients based on the city they belong to pune")
+	    @ApiResponses({
+			@ApiResponse(responseCode = "200", content = {
+					@Content(schema = @Schema(implementation = Patient.class), mediaType = "application/json") }),
+			@ApiResponse(responseCode = "500", content = { @Content(schema = @Schema()) }) })
+	@PutMapping("/increaseFees")
+	public ResponseEntity<List<Patient>> increaseFeesbycity() {
+	    List<Patient> updatedPatients = patientService.increaseFeesbycity();
+	    return new ResponseEntity<>(updatedPatients, HttpStatus.OK);
+	}
 
 }
