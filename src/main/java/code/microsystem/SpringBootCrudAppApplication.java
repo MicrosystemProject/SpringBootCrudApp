@@ -15,6 +15,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 	//	@Contact(name = "Arvind Shamra",email = "codemicrosystem@gmail.com",url = "http://www.codemicrosystem.com")
 
 )
+//System.out.pritnln("Hello");
 public class SpringBootCrudAppApplication {
 
 	public static void main(String[] args) {
