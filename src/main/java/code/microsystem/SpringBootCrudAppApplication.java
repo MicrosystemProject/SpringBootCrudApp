@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 @OpenAPIDefinition(
 		info = @Info(title = "AyushPlus App",version ="1.0v",
-				description = "This Health Care domain Project.Develop By Code Microsystem"
+		description = "This Health Care domain Project.Develop By Code Microsystem"
 					)
 	//	@Contact(name = "Arvind Shamra",email = "codemicrosystem@gmail.com",url = "http://www.codemicrosystem.com")
 
